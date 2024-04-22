@@ -6,8 +6,9 @@ AccelStepper myStepper(AccelStepper::DRIVER, stepPin, dirPin);
 
 int stepsPerMM = 200;
 float Z0 = 2180;
-float targetZ = 2178;
+float targetZ = 2181;
 float current_Z = Z0;
+float newRefZ;
 
 float limitUP = 2390;
 float limitDOWN = 2150;
@@ -60,7 +61,7 @@ void loop() {
  }
   if (targetZ >= limitDOWN && targetZ <= limitUP) {
     float targetPosition = (targetZ - Z0) * stepsPerMM;
-    moveMotor(targetPosition);
+    moveMotor(-targetPosition);
   } else {
     myStepper.stop();
     Serial.println("Target position is out of range.");
